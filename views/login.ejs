@@ -1,0 +1,50 @@
+<%- include("./partials/header") %>
+<div class="container">
+    <div class="box">
+        <form class="form">
+            <h1 class="page-header1">Login</h1>
+            <input type="text" placeholder="email" name="email">
+            <div class="error emailerror"></div>
+            <input type="password" placeholder="Password" name="password">
+            <div class="error passworderror"></div>
+            <input type="submit" value="Login">
+            <a href="/signup" style="text-align: center;">Sign up</a>
+        </form>
+    </div>
+</div>
+<script>
+    document.title = "Login"
+</script>
+<script>
+    let form=document.querySelector(".form")
+    let emailerror=document.querySelector(".emailerror")
+    let passworderror=document.querySelector(".passworderror")
+
+    form.addEventListener("submit", async(e)=>{
+        e.preventDefault()
+        let email=form.email.value
+        let password=form.password.value
+        let res=await fetch("/login", {
+            method:"POST",
+            headers:{"Content-type":"application/json"},
+            body:JSON.stringify({email:email, password:password})
+        })
+
+        let data=await res.json()
+        if (data.emailerror){
+            emailerror.textContent="Please enter a registered email address"
+            return
+
+        }
+        if (data.passworderror) {
+            passworderror.textContent = "Please enter a registered email address"
+            return
+
+        }
+        if (data.success){
+            location.assign("/")
+        }
+
+    })
+</script>
+<%- include("./partials/footer") %>         

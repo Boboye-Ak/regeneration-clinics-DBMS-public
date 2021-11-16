@@ -1,0 +1,127 @@
+<%- include("./partials/header") %>
+<div class="container">
+    <div class="box">
+        <form class="patient-data-form">
+            <h1 class="page-header1">Add Patient Data</h1>
+            <h1 class="page-header2"></h1>
+            <input type="text" name="name" placeholder="Patient Name*">
+            <div class="error nameerror"></div>
+            <input type="number" name="age" placeholder="Patient Age*">
+            <div class="error ageerror"></div>
+            <input type="text" name="phone" placeholder="Patient Phone Number*">
+            <div class="error phoneerror"></div>
+            <input type="text" name="phone2" placeholder="Patient Phone Number 2">
+            <input type="text" name="address" placeholder="Patient Address*">
+            <div class="error addresserror"></div>
+            <textarea name="diagnosis" id="diagnosis" placeholder="diagnosis" ></textarea>
+            <input type="submit" value="Upload Data">
+        </form>
+        
+    </div>
+</div>
+
+<script>
+    document.title="Add New Patient"
+</script>
+<script>
+let getCookie = (name) => {
+    return (name = (document.cookie + ';').match(new RegExp(name + '=.*;'))) && name[0].split(/=|;/)[1];
+}
+
+let getUser = async (token) => {
+    let res = await fetch("/checkuser", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        body: JSON.stringify({ token: token })
+            })
+            let data = await res.json()
+            let user = data.user
+            return user
+
+
+}
+
+
+const onLoad = async () => {
+    let token = getCookie("jwt")
+    let user = await getUser(token)
+    const form = document.querySelector("form")
+    const nameError = document.querySelector(".nameerror")
+    const ageError = document.querySelector(".ageerror")
+    const phoneError = document.querySelector(".phoneerror")
+    const addressError = document.querySelector(".addresserror")
+    const activeUser=user.email
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault()
+        const name = (form.name.value)
+        const age = form.age.value
+        const phone1 = form.phone.value
+        const phone2 = form.phone2.value
+        const address = form.address.value
+        const diagnosis = form.diagnosis.value
+
+        if (!name) {
+            nameError.textContent = "Please enter name"
+            return
+        }
+        else {
+            nameError.textContent = ""
+
+        }
+
+        if (!age) {
+            ageError.textContent = "Please enter age"
+            return
+        }
+        else {
+            ageError.textContent = ""
+
+        }
+
+        if (!parseInt(phone1) || (parseInt(phone1) < 1000000000) || (parseInt(phone1) > 9999999999)) {
+            phoneError.textContent = "Please enter valid phone number"
+            return
+        }
+        else {
+            phoneError.textContent = ""
+
+        }
+
+        if (!address) {
+            addressError.textContent = "Please enter Address"
+            return
+        }
+        else {
+            addressError.textContent = ""
+
+        }
+
+        
+
+
+
+        const res = await fetch("/addpatient", {
+            headers: { "Content-type": "application/json" },
+            method: "POST",
+            body: JSON.stringify({ name: name, age: age, phone1: phone1, phone2: phone2, address: address, diagnosis: diagnosis, activeUser:activeUser })
+        })
+
+        const data = await res.json()
+        if (data.success){
+            const destination= "/"+data.patient.id
+            location.assign(destination)
+        }
+
+
+
+
+    })
+                
+}
+
+
+
+onLoad()    
+
+</script>
+<%- include("./partials/footer") %>

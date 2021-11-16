@@ -1,0 +1,212 @@
+<%- include("./partials/header") %>
+<div class="container">
+<div class="box">
+<div class="patient-data-box">
+    <input class="hidden" type="text" id="hiddenid" 
+    <%if (id){ %> 
+       value=<%=id%>>
+      <% } else{""}%>
+    
+    
+    <h2>Patient Data</h2>
+    <div>Name: <span id="name"></span></div>
+    <div>Age: <span id="age"></span></div>
+    <div>Phone1: <span id="phone1"></span></div>
+    <div>Phone2: <span id="phone2"></span></div>
+    <div>Address: <span id="address"></span></div>
+    <div class="diagnosis" id="diagnosis"></div>
+    <button id="edit">Edit Patient Data</button>
+    <button id="delete">Delete Patient Data</button>
+    <button id="gohome">Go Home</button>
+
+
+
+</div>
+        <form class="patient-data-form hidden">
+            <h1 class="page-header1">Edit Patient Data</h1>
+            <h1 class="page-header2"></h1>
+            <input type="text" name="name" placeholder="Patient Name*">
+            <div class="error nameerror"></div>
+            <input type="number" name="age" placeholder="Patient Age*">
+            <div class="error ageerror"></div>
+            <input type="text" name="phone" placeholder="Patient Phone Number*">
+            <div class="error phoneerror"></div>
+            <input type="text" name="phone2" placeholder="Patient Phone Number 2">
+            <input type="text" name="address" placeholder="Patient Address*">
+            <div class="error addresserror"></div>
+            <textarea name="diagnosis" id="diagnosis" placeholder="diagnosis"></textarea>
+            <button id="undo">Undo Changes</button>
+            <input type="submit" value="Update Data">
+            <button id="view">View Mode</button>
+        </form>
+
+</div>
+</div>
+</div>
+</div>
+
+<script>
+    const nameError = document.querySelector(".nameerror")
+    const hid_id=document.querySelector("#hiddenid").value
+    const ageError = document.querySelector(".ageerror")
+    const phoneError = document.querySelector(".phoneerror")
+    const addressError = document.querySelector(".addresserror")
+    let deleteButton=document.querySelector("#delete")
+    let editButton = document.querySelector("#edit")
+    let homeButton = document.querySelector("#gohome")
+    let undoButton=document.querySelector("#undo")
+    let viewButton=document.querySelector("#view")
+    let nameTag=document.querySelector("#name")
+    let ageTag = document.querySelector("#age")
+    let phone1Tag = document.querySelector("#phone1")
+    let phone2Tag = document.querySelector("#phone2")
+    let addressTag = document.querySelector("#address")
+    let diagnosisTag = document.querySelector("#diagnosis")
+    let editForm=document.querySelector(".patient-data-form")
+    let patientDataBox=document.querySelector(".patient-data-box")
+    let getCookie = (name) => {
+            return (name = (document.cookie + ';').match(new RegExp(name + '=.*;'))) && name[0].split(/=|;/)[1];
+    }
+
+    const getPatient=async(id)=>{
+        const res=await fetch("/getpatient", {
+            method:"POST",
+            headers:{"Content-type":"application/json"},
+            body:JSON.stringify({id:id})
+            
+        })
+        const patient=await res.json()
+        return patient.patient
+
+
+    }
+
+    const onLoad=async()=>{
+        const patientId=getCookie("patientid")
+        const patient=await getPatient(hid_id)
+        nameTag.textContent=patient.name
+        ageTag.textContent=patient.age
+        phone1Tag.textContent=patient.phone1
+        phone2Tag.textContent=patient.phone2
+        addressTag.textContent=patient.address
+        diagnosisTag.textContent=patient.diagnosis
+        editForm.name.value=patient.name
+        editForm.age.value=patient.age
+        editForm.phone.value=patient.phone1
+        editForm.phone2.value=patient.phone2
+        editForm.address.value=patient.address
+        editForm.diagnosis.value=patient.diagnosis
+
+        undoButton.addEventListener("click", (e)=>{
+            e.preventDefault()
+            editForm.name.value = patient.name
+            editForm.age.value = patient.age
+            editForm.phone.value = patient.phone1
+            editForm.phone2.value = patient.phone2
+            editForm.address.value = patient.address
+            editForm.diagnosis.value = patient.diagnosis
+
+        })
+
+        viewButton.addEventListener("click", (e)=>{
+            e.preventDefault()
+            editForm.classList.add("hidden")
+            patientDataBox.classList.remove("hidden")
+        })
+
+        editButton.addEventListener("click", (e)=>{
+           e.preventDefault()
+            editForm.classList.remove("hidden")
+            patientDataBox.classList.add("hidden") 
+        })
+        homeButton.addEventListener("click", (e)=>{
+            e.preventDefault()
+            location.assign("/")
+        })
+        deleteButton.addEventListener("click", async (e)=>{
+            e.preventDefault()
+            let res=await fetch("/delete", {
+                method:"POST",
+                body:JSON.stringify({id:patientId}),
+                headers:{"Content-type":"application/json"}
+            })
+
+            const data=await res.json()
+            if (data.success){
+                location.assign("/")
+            }
+
+        })
+
+        editForm.addEventListener("submit", async(e)=>{
+            e.preventDefault()
+            let newName=editForm.name.value
+            let newAge=editForm.age.value
+            let newPhone1=editForm.phone.value
+            let newPhone2=editForm.phone2.value
+            let newAddress=editForm.address.value
+            let newDiagnosis=editForm.diagnosis.value
+
+            if (!newName) {
+                nameError.textContent = "Please enter name"
+                return
+            }
+            else {
+                nameError.textContent = ""
+
+            }
+
+            if (!newAge) {
+                ageError.textContent = "Please enter age"
+                return
+            }
+            else {
+                ageError.textContent = ""
+
+            }
+
+            if (!parseInt(newPhone1) || (parseInt(newPhone1) < 1000000000) || (parseInt(newPhone1) > 9999999999)) {
+                phoneError.textContent = "Please enter valid phone number"
+                return
+            }
+            else {
+                phoneError.textContent = ""
+
+            }
+
+            if (!newAddress) {
+                addressError.textContent = "Please enter Address"
+                return
+            }
+            else {
+                addressError.textContent = ""
+
+            }
+
+
+            let res=await fetch("/edit", {
+                method:"POST",
+                headers:{"Content-type":"application/json"},
+                body: JSON.stringify({id:patient.id, name:newName, age:newAge, phone1:newPhone1, phone2:newPhone2, address:newAddress, diagnosis:newDiagnosis })
+
+            })
+            let data= await res.json()
+            let newPatient=data.patient
+            console.log(newPatient)
+            nameTag.textContent = newPatient.name
+            ageTag.textContent = newPatient.age
+            phone1Tag.textContent = newPatient.phone1
+            phone2Tag.textContent = newPatient.phone2
+            addressTag.textContent = newPatient.address
+            diagnosisTag.textContent = newPatient.diagnosis
+            editForm.classList.add("hidden")
+            patientDataBox.classList.remove("hidden")
+
+            
+        })
+        
+    }
+onLoad()
+
+</script>
+<%- include("./partials/footer") %>

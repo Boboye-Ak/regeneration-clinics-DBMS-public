@@ -1,0 +1,66 @@
+<%- include("./partials/header") %>
+<div class="container">
+    <div class="box">
+    <form class="form">
+        <h1 class="page-header1">Sign up</h1>
+        <input type="text" placeholder="email" name="email">
+        <div class="error emailerror"></div>
+        <input type="password" placeholder="Password" name="password">
+        <div class="error passworderror"></div>
+        <input type="password" placeholder="Master Password" name="masterpassword">
+        <div class="error masterpassworderror"></div>
+        <input type="submit" value="Sign up">
+        <div class="success"></div>
+        <p><a href="/login">Login</a></p>
+    </form>
+    </div>
+</div>
+<script>
+    document.title = "Signup"
+</script>
+<script>
+    let form = document.querySelector(".form")
+    let emailerror=document.querySelector(".emailerror")
+    let passworderror = document.querySelector(".passworderror")
+    let mpassworderror = document.querySelector(".masterpassworderror")
+    let successmessage=document.querySelector(".success")
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault()
+        let email = form.email.value
+        let password = form.password.value
+        let masterpassword=form.masterpassword.value
+        if (password.length<6){
+            emailerror.textContent=""
+            mpassworderror.textContent=""
+            passworderror.textContent="password too short"
+            return
+            
+        }
+        let res = await fetch("/signup", {
+            method: "POST",
+            headers: { "Content-type": "application/json" },
+            body: JSON.stringify({ email: email, password: password, masterpassword:masterpassword })
+        })
+
+        let data= await res.json()
+        console.log(data)
+        if (data.success){
+            successmessage.textContent=data.success
+            location.assign("/")
+            return
+
+        }
+        if (data.error.masterpassword){
+            mpassworderror.textContent="Enter correct masterpassword"
+            return
+        }
+        if (data.error.email){
+            emailerror.textContent="Please enter valid email"
+            return
+        }
+
+
+    })
+</script>
+<%- include("./partials/footer") %>

@@ -1,0 +1,368 @@
+body {
+  background: rgb(213, 204, 210);
+  text-align: justify;
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+.page-header1 {
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 2em;
+  color: rgb(50, 50, 51);
+}
+
+.page-header2 {
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 1.5em;
+  margin-bottom: 1em;
+  color: rgb(100, 100, 100);
+}
+
+.container {
+  margin: 0% 5%;
+}
+.container h1 {
+  text-align: center;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  border-style: solid;
+  border-color: rgb(100, 100, 100);
+  border-width: 0.5em;
+  width: 50%;
+  height: 70%;
+}
+
+input {
+  height: 3.5em;
+  width: 90%;
+  margin: 1em;
+  font-size: 1.15em;
+  border-radius: 15px;
+  box-shadow: none;
+  border-style: solid;
+  border-color: rgb(173, 183, 204);
+  background-color: rgb(255, 255, 230);
+  text-transform: capitalize;
+}
+.form a {
+  color: rgb(145, 145, 144);
+}
+input:hover {
+  border-style: solid;
+  border-color: rgb(173, 183, 204);
+  height: 4em;
+}
+
+input:focus {
+  border-style: solid;
+  border-color: rgb(173, 183, 204);
+  height: 4em;
+}
+
+input[type="submit"] {
+  background-color: rgb(173, 183, 204);
+  border-style: solid;
+}
+input[type="submit"]:hover {
+  background-color: rgb(113, 133, 154);
+  height: 4em;
+}
+
+button {
+  background-color: rgb(173, 183, 204);
+  border-style: solid;
+  height: 4em;
+  width: 90%;
+  margin: 1em;
+  font-size: 1.15em;
+  border-radius: 15px;
+  box-shadow: none;
+  border-style: solid;
+  border-color: rgb(173, 183, 204);
+}
+
+button:hover {
+  background-color: rgb(113, 133, 154);
+}
+
+.error {
+  color: red;
+  font-size: smaller;
+}
+
+.success {
+  color: green;
+  font-size: smaller;
+}
+
+textarea {
+  height: 5em;
+  width: 90%;
+  margin: 1em;
+  font-size: 2em;
+  border-radius: 15px;
+  box-shadow: none;
+  border-style: solid;
+  border-color: rgb(173, 183, 204);
+  background-color: rgb(255, 255, 230);
+}
+
+textarea:hover {
+  border-style: solid;
+  border-color: rgb(173, 183, 204);
+  height: 7em;
+}
+
+textarea:focus {
+  border-style: solid;
+  border-color: rgb(173, 183, 204);
+  height: 7em;
+}
+
+.patient-data-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 10px;
+  border-style: solid;
+  border-color: rgb(100, 100, 100);
+  border-width: 0.5em;
+  width: 50%;
+}
+
+.patient-data-form input {
+  height: 2em;
+  width: 90%;
+  margin: 0.7em;
+  font-size: 1.15em;
+  border-radius: 15px;
+  box-shadow: none;
+  border-style: solid;
+  border-color: rgb(173, 183, 204);
+  background-color: rgb(255, 255, 230);
+}
+
+.patient-data-form textarea {
+  height: 4em;
+  width: 90%;
+  margin: 0.7em;
+  font-size: 1.5em;
+  border-radius: 15px;
+  box-shadow: none;
+  border-style: solid;
+  border-color: rgb(173, 183, 204);
+  background-color: rgb(255, 255, 230);
+}
+.patient-data-form input[type="submit"] {
+  background-color: rgb(173, 183, 204);
+  border-style: solid;
+}
+.patient-data-form input[type="submit"]:hover {
+  background-color: rgb(113, 133, 154);
+  height: 2em;
+}
+.patient-data-form button {
+  height: 2em;
+}
+
+.patient-data-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 10px;
+  border-style: solid;
+  border-color: rgb(100, 100, 100);
+  border-width: 0.5em;
+  width: 50%;
+  text-transform: capitalize;
+}
+.patient-data-box div {
+  height: 2em;
+  width: 90%;
+  margin: 0.4em;
+  padding: 0.4em;
+  font-size: 1.15em;
+  border-radius: 15px;
+  box-shadow: none;
+  border-style: solid;
+  border-color: rgb(173, 183, 204);
+  background-color: rgb(255, 255, 230);
+}
+
+.patient-data-box button {
+  height: 1.5em;
+  margin: 0.5em;
+}
+.patient-data-box h2 {
+  text-align: center;
+}
+
+.patient-data-box .diagnosis {
+  height: 5em;
+  width: 90%;
+  margin: 0.7em;
+  font-size: 1em;
+  border-radius: 15px;
+  box-shadow: none;
+  border-style: solid;
+  border-color: rgb(173, 183, 204);
+  background-color: rgb(255, 255, 230);
+  overflow: auto;
+}
+
+.hidden {
+  display: none;
+}
+
+.search-bar {
+  border-color: rgb(100, 100, 100);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border-style: solid;
+  border-radius: 10px;
+  height: 130px;
+  margin-bottom: 1em;
+}
+
+.search-bar input {
+  height: 1.5em;
+  margin: 0.5em;
+  width: 25%;
+}
+
+.search-bar input[name="name"] {
+  width: 50%;
+}
+.search-bar input[name="minage"] {
+  width: 20%;
+}
+.search-bar input[name="maxage"] {
+  width: 20%;
+}
+.search-bar input[name="phone"] {
+  width: 45%;
+}
+.search-bar input[name="address"] {
+  width: 45%;
+}
+.search-bar input[type="submit"] {
+  height: 1.5em;
+  width: 90%;
+}
+.search-bar input[type="submit"]:hover {
+  height: 1.5em;
+}
+
+.data-box {
+  border-color: rgb(100, 100, 100);
+  display: flex;
+  flex-direction: row;
+  border-radius: 10px;
+  border-style: solid;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em;
+}
+
+.card {
+  border-color: rgb(100, 100, 100);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  font-size: 1.15em;
+  width: 30%;
+  height: 100px;
+  border-style: solid;
+  border-radius: 10px;
+  transition: all 100ms ease-in-out;
+  background: rgb(183, 174, 180);
+}
+
+.card:hover {
+  width: 35%;
+  height: 130px;
+  font-size: 1.4em;
+  background: rgb(153, 144, 150);
+}
+.card p {
+  margin: 0;
+  margin-left: 1em;
+  text-transform: capitalize;
+  font-weight: 900;
+}
+
+.card a {
+  text-decoration: none;
+  color: rgb(20, 20, 20);
+}
+
+@media screen and (max-width: 600px) {
+  input {
+    height: 2em;
+  }
+  .form {
+    width: 70%;
+  }
+  .search-bar {
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+  }
+  .patient-data-form {
+    width: 90%;
+  }
+  .patient-data-box {
+    width: 90%;
+  }
+  .search-bar input[name="name"] {
+    width: 90%;
+  }
+  .search-bar input[name="minage"] {
+    width: 90%;
+  }
+  .search-bar input[name="maxage"] {
+    width: 90%;
+  }
+  .search-bar input[name="phone"] {
+    width: 90%;
+  }
+  .search-bar input[name="address"] {
+    width: 90%;
+  }
+  .search-bar input[type="submit"] {
+    height: 1.5em;
+    width: 90%;
+  }
+  .search-bar input[type="submit"]:hover {
+    height: 1.5em;
+  }
+  .data-box {
+    display: block;
+  }
+  .card {
+    width: 90%;
+  }
+}

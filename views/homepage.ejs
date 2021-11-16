@@ -1,0 +1,46 @@
+<%- include("./partials/header") %>
+<h1 class="page-header1"></h1>
+<div class="container">
+    <div class="box">
+        <div class="form">
+            <a href="/addpatient"><button>Add New Patient</button></a>
+            <a href="/data"><button>View Patient Data</button></a>
+        </div>
+    </div>
+    
+</div>
+<script>
+    document.title = "Homepage"
+</script>
+<script>
+    let pageHeader=document.querySelector(".page-header1")
+    let getCookie=(name)=>{
+            return (name = (document.cookie + ';').match(new RegExp(name + '=.*;'))) && name[0].split(/=|;/)[1];
+    }
+
+    let getUser=async (token)=>{
+        let res=await fetch("/checkuser", {
+            method:"POST",
+            headers:{"Content-type":"application/json"},
+            body:JSON.stringify({token:token})
+        })
+        let data=await res.json()
+        let user=data.user
+        return user
+    
+
+    }
+
+
+    
+
+    const onLoad=async ()=>{
+        let token = getCookie("jwt")
+        let user=await getUser(token)
+        pageHeader.textContent=`Welcome ${user.email}. What would you like to do?`
+
+    }
+
+    onLoad()
+</script>
+<%- include("./partials/footer") %>
