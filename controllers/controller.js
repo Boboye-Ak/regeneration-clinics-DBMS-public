@@ -5,7 +5,7 @@ const jwt=require("jsonwebtoken")
 const User=require("../models/usermodel")
 const Patient=require("../models/patientmodel")
 
-const createtoken=(id)=>{
+const createToken=(id)=>{
     const token=jwt.sign({id}, "boboyesecret", {expiresIn:3*24*60*60})
     return token
 }
@@ -29,6 +29,11 @@ module.exports.addpatient_get=(req, res)=>{
 module.exports.signup_post=async (req, res)=>{
     const {email, password, masterpassword}=req.body
     const isemail=isEmail(email)
+    const emailCheck=await User.findOne({email:email})
+    if (emailCheck){
+        let error={email:"Email already registered"}
+        return res.json({error})
+    }
     if (!isemail){
         let error={email:"Please enter valid email"}
         return res.json({error})
@@ -40,9 +45,7 @@ module.exports.signup_post=async (req, res)=>{
 
     const salt= await bcrypt.genSalt()
     const hashedPassword=await bcrypt.hash(password, salt)
-
-    const users=await User.find({})
-    let id=Date.now()
+    let id=Date.now().toString()
     let newUser=await User.create({id:id, email:email, password:hashedPassword})
     const newUser_id=newUser._id
     const token=createToken(newUser_id)
@@ -74,7 +77,7 @@ module.exports.checkUser_post=async (req, res)=>{
     const {token}=req.body
         jwt.verify(token, "boboyesecret", async (err, decodedToken)=>{
         if(err){
-            res.redirect("/login")
+            return res.redirect("/login")
         }
         if (decodedToken){
             const user=await User.findById(decodedToken.id)
