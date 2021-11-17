@@ -303,12 +303,6 @@ textarea:focus {
   background: rgb(183, 174, 180);
 }
 
-.card:hover {
-  width: 35%;
-  height: 130px;
-  font-size: 1.4em;
-  background: rgb(153, 144, 150);
-}
 .card p {
   margin: 0;
   margin-left: 1em;
@@ -321,6 +315,7 @@ textarea:focus {
   color: rgb(20, 20, 20);
 }
 
+/*Exclusively for small screens*/
 @media screen and (max-width: 600px) {
   input {
     height: 2em;
@@ -366,5 +361,15 @@ textarea:focus {
   }
   .card {
     width: 90%;
+  }
+}
+
+/*Exclusively for large screens*/
+@media screen and (max-width: 600px) {
+  .card:hover {
+    width: 35%;
+    height: 130px;
+    font-size: 1.4em;
+    background: rgb(153, 144, 150);
   }
 }
