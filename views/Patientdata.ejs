@@ -46,6 +46,9 @@
 </div>
 
 <script>
+    document.title = "Patient"
+</script>
+<script>
     const nameError = document.querySelector(".nameerror")
     const hid_id=document.querySelector("#hiddenid").value
     const ageError = document.querySelector(".ageerror")
@@ -112,12 +115,14 @@
             e.preventDefault()
             editForm.classList.add("hidden")
             patientDataBox.classList.remove("hidden")
+            document.title = "Patient"
         })
 
         editButton.addEventListener("click", (e)=>{
            e.preventDefault()
             editForm.classList.remove("hidden")
-            patientDataBox.classList.add("hidden") 
+            patientDataBox.classList.add("hidden")
+            document.title = "Edit"
         })
         homeButton.addEventListener("click", (e)=>{
             e.preventDefault()

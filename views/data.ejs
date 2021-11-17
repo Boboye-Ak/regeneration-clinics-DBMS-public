@@ -1,5 +1,6 @@
 <%- include("./partials/header") %>
 <div class="container">
+    <button id="home">Go Home</button>
     <h1>Patient Data </h1>
     <div class="search-bar">
         <form class="search-form">
@@ -20,6 +21,10 @@
 </div>
 
 <script>
+    document.title = "Patient Data"
+</script>
+<script>
+    const home=document.querySelector("#home")
     const searchForm=document.querySelector(".search-form")
     const cardBox=document.querySelector(".data-box")
     const fetchData=async()=>{
@@ -55,6 +60,10 @@
     const onLoad=async()=>{
         const patients=await fetchData()
         printCards(patients)
+        home.addEventListener("click", (e)=>{
+            e.preventDefault()
+            location.assign("/")
+        })
         searchForm.addEventListener("submit", (e)=>{
             e.preventDefault()
             let name=searchForm.name.value

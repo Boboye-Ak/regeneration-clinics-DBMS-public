@@ -371,7 +371,10 @@ textarea:focus {
   .search-bar input[type="submit"]:hover {
     height: 1.5em;
   }
-  .search-bar input[type="submit"]:hover {
+  .search-bar input[type="text"]:hover {
+    height: 1.5em;
+  }
+  .search-bar input[type="number"]:hover {
     height: 1.5em;
   }
 }
