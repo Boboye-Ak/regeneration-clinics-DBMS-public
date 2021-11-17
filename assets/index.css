@@ -59,6 +59,8 @@ input {
   border-style: solid;
   border-color: rgb(173, 183, 204);
   background-color: rgb(255, 255, 230);
+}
+.edit input {
   text-transform: capitalize;
 }
 .form a {
