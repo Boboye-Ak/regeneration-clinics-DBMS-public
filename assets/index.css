@@ -330,7 +330,9 @@ textarea:focus {
   }
 
   .data-box {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
   .card {
     width: 90%;
