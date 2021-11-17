@@ -66,7 +66,7 @@ module.exports.login_post=async (req, res)=>{
         return res.json({passworderror:"Please enter correct password"})
     }
 
-    const token=createtoken(user._id)
+    const token=createToken(user._id)
     res.cookie("jwt", token)
     res.json({success:"login successful"})
 
