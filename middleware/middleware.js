@@ -1,4 +1,5 @@
 const jwt=require("jsonwebtoken")
+const Patient=require("../models/patientmodel")
 
 const requireAuth=(req,res,next)=>{
     const token=req.cookies.jwt
@@ -17,4 +18,11 @@ const requireAuth=(req,res,next)=>{
 
 }
 
-module.exports={requireAuth}
+const patientDataMiddleware=async (req, res, next)=>{
+    const {id}=req.params
+    const patient=await Patient.findOne({id:id})
+    res.locals.id=patient.id
+    next()
+}
+
+module.exports={requireAuth, patientDataMiddleware}

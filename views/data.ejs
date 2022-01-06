@@ -13,11 +13,12 @@
 
         </form>
 
-    </div>
-    <div class="data-box">
 
-        
     </div>
+    <div class="data-box">   
+    </div>
+
+    <button id="to-top"> to Top</button>
 </div>
 
 <script>
@@ -26,6 +27,7 @@
 <script>
     const home=document.querySelector("#home")
     const searchForm=document.querySelector(".search-form")
+    const topOfPage=document.querySelector("#to-top")
     const cardBox=document.querySelector(".data-box")
     const fetchData=async()=>{
         const res=await fetch("/fetchdata")
@@ -64,6 +66,14 @@
             e.preventDefault()
             location.assign("/")
         })
+
+        topOfPage.addEventListener("click", (e)=>{
+            e.preventDefault()
+            window.scroll({ top: 0, left: 0, behavior: 'smooth' })
+        })
+
+
+        
         searchForm.addEventListener("submit", (e)=>{
             e.preventDefault()
             let name=searchForm.name.value

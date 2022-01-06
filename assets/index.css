@@ -232,22 +232,28 @@ textarea:focus {
 
 .search-bar input[name="name"] {
   width: 50%;
+  box-shadow: 2px 5px;
 }
 .search-bar input[name="minage"] {
   width: 20%;
+  box-shadow: 2px 5px;
 }
 .search-bar input[name="maxage"] {
   width: 20%;
+  box-shadow: 2px 5px;
 }
 .search-bar input[name="phone"] {
   width: 45%;
+  box-shadow: 2px 5px;
 }
 .search-bar input[name="address"] {
   width: 45%;
+  box-shadow: 2px 5px;
 }
 .search-bar input[type="submit"] {
   height: 1.5em;
   width: 90%;
+  box-shadow: 2px 5px;
 }
 
 .data-box {
@@ -264,6 +270,7 @@ textarea:focus {
 
 .card {
   border-color: rgb(100, 100, 100);
+  box-shadow: 2px 5px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -274,7 +281,7 @@ textarea:focus {
   height: 100px;
   border-style: solid;
   border-radius: 10px;
-  transition: all 100ms ease-in-out;
+  transition: all 200ms ease-in-out;
   background: rgb(183, 174, 180);
 }
 
@@ -346,6 +353,7 @@ textarea:focus {
     height: 130px;
     font-size: 1.4em;
     background: rgb(153, 144, 150);
+    box-shadow: 5px 10px;
   }
   input:hover {
     border-style: solid;
